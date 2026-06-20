@@ -67,9 +67,9 @@ export default function Serra() {
 
           {/* Left column */}
           <div style={{ display: "flex", flexDirection: "column", gap: "1rem", order: 1 }}>
-            {/* Logo card — centered, full logo visible */}
-            <div style={{ position: "relative", borderRadius: "var(--radius-xl)", overflow: "hidden", aspectRatio: "1/1", display: "flex", alignItems: "center", justifyContent: "center", background: "#1a1410" }}>
-              <img src="/haras-logo.webp" alt="Haras 8888" style={{ maxWidth: "85%", maxHeight: "85%", width: "auto", height: "auto", objectFit: "contain" }} />
+            {/* Logo — fills the card completely, no frame */}
+            <div style={{ position: "relative", borderRadius: "var(--radius-xl)", overflow: "hidden", aspectRatio: "1/1" }}>
+              <img src="/haras-logo.webp" alt="Haras 8888" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
             </div>
 
             {/* Feature tags */}
@@ -92,8 +92,8 @@ export default function Serra() {
             </div>
           </div>
 
-          {/* Big sliding photo — now on the right, natural aspect ratio per photo */}
-          <div className="haras-slider" style={{ position: "relative", borderRadius: "var(--radius-2xl)", overflow: "hidden", boxShadow: "0 40px 100px -28px rgba(20,24,21,0.22)", order: 2, background: "#0e0c0a" }}>
+          {/* Big sliding photo — now on the right, fixed height, cropped from sides to standardize size */}
+          <div className="haras-slider" style={{ position: "relative", borderRadius: "var(--radius-2xl)", overflow: "hidden", boxShadow: "0 40px 100px -28px rgba(20,24,21,0.22)", order: 2, background: "#0e0c0a", aspectRatio: "16/10" }}>
             {HARAS_PHOTOS.map((photo, i) => (
               <img
                 key={i}
@@ -102,10 +102,12 @@ export default function Serra() {
                 loading={i === 0 ? "eager" : "lazy"}
                 style={{
                   display: "block",
+                  position: "absolute",
+                  inset: 0,
                   width: "100%",
-                  height: "auto",
-                  position: i === activePhoto ? "relative" : "absolute",
-                  top: 0,
+                  height: "100%",
+                  objectFit: "cover",
+                  objectPosition: "center",
                   opacity: activePhoto === i ? 1 : 0,
                   transition: "opacity 0.8s ease",
                   pointerEvents: activePhoto === i ? "auto" : "none",
