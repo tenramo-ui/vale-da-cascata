@@ -113,7 +113,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="inicio" ref={sectionRef} style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "flex-end", paddingBottom: "clamp(3rem,8vh,7rem)", overflow: "hidden" }}>
+    <section id="inicio" ref={sectionRef} style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "flex-end", paddingBottom: "clamp(5rem,12vh,9rem)", overflow: "hidden" }}>
 
       {/* BG photo */}
       <div ref={bgRef} style={{ position: "absolute", inset: "-8% 0", backgroundImage: "url(/cachoeira.webp)", backgroundSize: "cover", backgroundPosition: "center", willChange: "transform", zIndex: 0 }} />
@@ -149,7 +149,7 @@ export default function Hero() {
         </p>
 
         {/* Booking bar */}
-        <div ref={bookbarRef} style={{ marginTop: "2.4rem", display: "inline-flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap", padding: "0.7rem 0.7rem 0.7rem 1.1rem", borderRadius: "var(--radius-xl)", background: "color-mix(in srgb, var(--forest-950) 55%, transparent)", backdropFilter: "var(--blur-md)", WebkitBackdropFilter: "var(--blur-md)", border: "1px solid var(--border-soft)", boxShadow: "var(--shadow-lg)" }}>
+        <div ref={bookbarRef} className="hero-bookbar" style={{ marginTop: "2.4rem", display: "inline-flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap", padding: "0.7rem 0.7rem 0.7rem 1.1rem", borderRadius: "var(--radius-xl)", background: "color-mix(in srgb, var(--forest-950) 55%, transparent)", backdropFilter: "var(--blur-md)", WebkitBackdropFilter: "var(--blur-md)", border: "1px solid var(--border-soft)", boxShadow: "var(--shadow-lg)" }}>
           {[["Chegada","Sex, 18 jul"],["Saída","Dom, 20 jul"]].map(([lbl,val]) => (
             <div key={lbl} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
               <button onClick={() => setModalOpen(true)} style={{ display: "inline-flex", alignItems: "center", gap: "0.7rem", background: "none", border: "none", cursor: "pointer", padding: "0.45rem 0.9rem", borderRadius: "var(--radius-md)", transition: "var(--tr-fast)", textAlign: "left" }}
@@ -185,10 +185,16 @@ export default function Hero() {
       <BookingModal open={modalOpen} onClose={() => setModalOpen(false)} />
 
       {/* Scroll cue */}
-      <div style={{ position: "absolute", left: "50%", bottom: 26, transform: "translateX(-50%)", zIndex: 4, display: "flex", flexDirection: "column", alignItems: "center", gap: 10, fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--mist-200)" }}>
+      <div className="hero-scrollcue" style={{ position: "absolute", left: "50%", bottom: 26, transform: "translateX(-50%)", zIndex: 4, display: "flex", flexDirection: "column", alignItems: "center", gap: 10, fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--mist-200)" }}>
         <span>Role para explorar</span>
         <i style={{ display: "block", width: 1, height: 38, background: "linear-gradient(var(--gold-400), transparent)", animation: "vc-cue 2s var(--ease-in-out) infinite", transformOrigin: "top" }} />
       </div>
+
+      <style jsx>{`
+        @media (max-height: 680px) {
+          .hero-scrollcue { display: none !important; }
+        }
+      `}</style>
     </section>
   );
 }
