@@ -115,11 +115,13 @@ export default function BookingModal({ open, onClose }: BookingModalProps) {
   return (
     <div
       style={{
-        position: "fixed", inset: 0, zIndex: 1000,
-        background: "rgba(10,23,17,0.72)",
+        position: "fixed", top: 0, left: 0, right: 0, bottom: 0, zIndex: 9999,
+        background: "rgba(10,23,17,0.78)",
         backdropFilter: "blur(6px)",
+        WebkitBackdropFilter: "blur(6px)",
         display: "flex", alignItems: "center", justifyContent: "center",
         padding: "1rem",
+        overflowY: "auto",
       }}
       onClick={resetAndClose}
     >
@@ -131,10 +133,11 @@ export default function BookingModal({ open, onClose }: BookingModalProps) {
           borderRadius: "var(--radius-xl)",
           maxWidth: 480,
           width: "100%",
-          maxHeight: "90vh",
+          maxHeight: "min(90vh, 720px)",
           overflowY: "auto",
           padding: "2rem",
           boxShadow: "var(--shadow-xl)",
+          margin: "auto",
         }}
       >
         {/* Header */}
