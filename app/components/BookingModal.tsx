@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import MiniCalendar from "./MiniCalendar";
 
 interface BookingModalProps {
@@ -30,6 +31,7 @@ function formatBR(iso: string | null): string {
 type Step = "form" | "checking" | "result";
 
 export default function BookingModal({ open, onClose }: BookingModalProps) {
+  const [mounted, setMounted] = useState(false);
   const [step, setStep] = useState<Step>("form");
   const [guests, setGuests] = useState(2);
   const [start, setStart] = useState<string | null>(null);
@@ -39,6 +41,10 @@ export default function BookingModal({ open, onClose }: BookingModalProps) {
   const [fetchError, setFetchError] = useState(false);
   const [eligibleChales, setEligibleChales] = useState<string[]>([]);
   const [availableChales, setAvailableChales] = useState<string[]>([]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -55,7 +61,16 @@ export default function BookingModal({ open, onClose }: BookingModalProps) {
       .finally(() => setLoadingSheet(false));
   }, [open]);
 
-  if (!open) return null;
+  // Lock body scroll while the modal is open, so the page behind doesn't scroll
+  useEffect(() => {
+    if (open) {
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => { document.body.style.overflow = prevOverflow; };
+    }
+  }, [open]);
+
+  if (!open || !mounted) return null;
 
   // Guest-count eligibility logic, per the rules:
   // up to 3 -> all 3 chalets; 4-6 -> only Lago; 7+ -> direct to Eventos/WhatsApp (max capacity is 6)
@@ -112,7 +127,7 @@ export default function BookingModal({ open, onClose }: BookingModalProps) {
     onClose();
   };
 
-  return (
+  return createPortal(
     <div
       style={{
         position: "fixed", top: 0, left: 0, right: 0, bottom: 0, zIndex: 9999,
@@ -283,6 +298,7 @@ export default function BookingModal({ open, onClose }: BookingModalProps) {
           </div>
         )}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
