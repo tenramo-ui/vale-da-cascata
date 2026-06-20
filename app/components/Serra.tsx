@@ -69,7 +69,7 @@ export default function Serra() {
           <div style={{ display: "flex", flexDirection: "column", gap: "1rem", order: 1 }}>
             {/* Logo — same height as the photo beside it, centered, no cropping */}
             <div style={{ position: "relative", borderRadius: "var(--radius-xl)", overflow: "hidden", aspectRatio: "16/10", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <img src="/haras-logo.webp" alt="Haras 8888" style={{ display: "block", height: "100%", width: "auto", maxWidth: "55%", objectFit: "contain" }} />
+              <img src="/haras-logo.webp" alt="Haras 8888" width={500} height={823} style={{ display: "block", height: "100%", width: "auto", maxWidth: "55%", objectFit: "contain" }} />
             </div>
 
             {/* Feature tags */}
@@ -100,6 +100,8 @@ export default function Serra() {
                 src={photo.src}
                 alt={photo.label}
                 loading={i === 0 ? "eager" : "lazy"}
+                width={900}
+                height={563}
                 style={{
                   display: "block",
                   position: "absolute",
@@ -140,7 +142,7 @@ export default function Serra() {
           {HARAS_PHOTOS.map((photo, i) => (
             <button key={i} onClick={() => setActivePhoto(i)}
               style={{ flexShrink: 0, width: 110, height: 72, borderRadius: "var(--radius-sm)", overflow: "hidden", border: i === activePhoto ? "2px solid var(--gold-600)" : "2px solid transparent", padding: 0, cursor: "pointer", transition: "border-color 200ms", position: "relative", background: "#1a1410" }}>
-              <img src={photo.src} alt="" loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              <img src={photo.src} alt="" loading="lazy" width={110} height={72} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
             </button>
           ))}
         </div>

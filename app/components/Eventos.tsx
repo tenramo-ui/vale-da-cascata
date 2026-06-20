@@ -46,19 +46,19 @@ export default function Eventos() {
         {/* Photo grid — masonry columns, photos keep their natural (portrait) ratio */}
         <div className="vc-reveal eventos-masonry">
           <div className="eventos-photo">
-            <img src="/capela-exterior.webp" alt="Capela — exterior, luz natural" loading="lazy" />
+            <img src="/capela-exterior.webp" alt="Capela — exterior, luz natural" loading="lazy" width={700} height={931} />
             <div className="eventos-caption-overlay">
               <span>Exterior · luz natural</span>
             </div>
           </div>
           <div className="eventos-photo">
-            <img src="/capela-interior.webp" alt="Capela — interior" loading="lazy" />
+            <img src="/capela-interior.webp" alt="Capela — interior" loading="lazy" width={700} height={933} />
             <div className="eventos-caption-overlay">
               <span>Interior</span>
             </div>
           </div>
           <div className="eventos-photo">
-            <img src="/capela-noite.webp" alt="Capela — cerimônia noturna" loading="lazy" />
+            <img src="/capela-noite.webp" alt="Capela — cerimônia noturna" loading="lazy" width={700} height={933} />
             <div className="eventos-caption-overlay">
               <span>Cerimônia noturna</span>
             </div>
