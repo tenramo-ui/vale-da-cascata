@@ -185,14 +185,14 @@ export default function Hero() {
       <BookingModal open={modalOpen} onClose={() => setModalOpen(false)} />
 
       {/* Scroll cue */}
-      <div className="hero-scrollcue" style={{ position: "absolute", left: "50%", bottom: 26, transform: "translateX(-50%)", zIndex: 4, display: "flex", flexDirection: "column", alignItems: "center", gap: 10, fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--mist-200)" }}>
+      <div className="hero-scrollcue" style={{ position: "absolute", left: "50%", bottom: 8, transform: "translateX(-50%)", zIndex: 4, display: "flex", flexDirection: "column", alignItems: "center", gap: 10, fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--mist-200)" }}>
         <span>Role para explorar</span>
         <i style={{ display: "block", width: 1, height: 38, background: "linear-gradient(var(--gold-400), transparent)", animation: "vc-cue 2s var(--ease-in-out) infinite", transformOrigin: "top" }} />
       </div>
 
       <style jsx>{`
         @media (max-height: 680px) {
-          .hero-scrollcue { display: none !important; }
+          .hero-scrollcue { display: none; }
         }
       `}</style>
     </section>

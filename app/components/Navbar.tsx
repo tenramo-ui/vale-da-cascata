@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Image from "next/image";
+import BookingModal from "./BookingModal";
 
 const links = [
   { label: "Início",      href: "#inicio" },
@@ -16,6 +17,7 @@ const links = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("Início");
+  const [modalOpen, setModalOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -111,17 +113,17 @@ export default function Navbar() {
         </nav>
 
         {/* CTA */}
-        <a
-          href="https://wa.me/5549991832114"
-          target="_blank"
-          rel="noreferrer"
-          style={{ fontFamily: "var(--font-sans)", fontWeight: 600, fontSize: "var(--text-sm)", color: "var(--text-onGold)", background: "var(--gold-500)", padding: "10px 22px", borderRadius: "var(--radius-pill)", transition: "var(--tr-fast)", flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 6 }}
+        <button
+          onClick={() => setModalOpen(true)}
+          style={{ fontFamily: "var(--font-sans)", fontWeight: 600, fontSize: "var(--text-sm)", color: "var(--text-onGold)", background: "var(--gold-500)", padding: "10px 22px", borderRadius: "var(--radius-pill)", transition: "var(--tr-fast)", flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 6, border: "none", cursor: "pointer" }}
           onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "var(--gold-400)"; (e.currentTarget as HTMLElement).style.boxShadow = "var(--glow-gold)"; }}
           onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "var(--gold-500)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
         >
           Reservar
-        </a>
+        </button>
       </div>
+
+      <BookingModal open={modalOpen} onClose={() => setModalOpen(false)} />
 
       <style jsx>{`
         @media (max-width: 900px) { .nav-desktop { display: none !important; } }

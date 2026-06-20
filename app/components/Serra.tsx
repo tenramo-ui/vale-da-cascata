@@ -67,9 +67,9 @@ export default function Serra() {
 
           {/* Left column */}
           <div style={{ display: "flex", flexDirection: "column", gap: "1rem", order: 1 }}>
-            {/* Logo — fills the card completely, no frame */}
-            <div style={{ position: "relative", borderRadius: "var(--radius-xl)", overflow: "hidden", aspectRatio: "1/1" }}>
-              <img src="/haras-logo.webp" alt="Haras 8888" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
+            {/* Logo — fills the card completely, no frame, natural aspect ratio (no cropping) */}
+            <div style={{ position: "relative", borderRadius: "var(--radius-xl)", overflow: "hidden" }}>
+              <img src="/haras-logo.webp" alt="Haras 8888" style={{ display: "block", width: "100%", height: "auto" }} />
             </div>
 
             {/* Feature tags */}

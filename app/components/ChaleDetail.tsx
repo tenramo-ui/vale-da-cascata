@@ -4,6 +4,7 @@ import gsap from "gsap";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import BookingModal from "./BookingModal";
 
 interface ChaleDetailProps {
   name: string;
@@ -44,6 +45,7 @@ function brl(n: number) { return "R$ " + n.toLocaleString("pt-BR"); }
 
 function NavBar() {
   const [scrolled, setScrolled] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -69,12 +71,13 @@ function NavBar() {
             </Link>
           ))}
         </nav>
-        <a href="https://wa.me/5549991832114" target="_blank" rel="noreferrer" style={{ fontFamily: "var(--font-sans)", fontWeight: 600, fontSize: "var(--text-sm)", color: "var(--text-onGold)", background: "var(--gold-500)", padding: "10px 22px", borderRadius: "var(--radius-pill)", transition: "all 180ms", flexShrink: 0 }}
+        <button onClick={() => setModalOpen(true)} style={{ fontFamily: "var(--font-sans)", fontWeight: 600, fontSize: "var(--text-sm)", color: "var(--text-onGold)", background: "var(--gold-500)", padding: "10px 22px", borderRadius: "var(--radius-pill)", transition: "all 180ms", flexShrink: 0, border: "none", cursor: "pointer" }}
           onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "var(--gold-400)"; (e.currentTarget as HTMLElement).style.boxShadow = "var(--glow-gold)"; }}
           onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "var(--gold-500)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}>
           Reservar
-        </a>
+        </button>
       </div>
+      <BookingModal open={modalOpen} onClose={() => setModalOpen(false)} />
       <style jsx>{`@media (max-width: 900px) { .nav-desktop { display: none !important; } }`}</style>
     </header>
   );

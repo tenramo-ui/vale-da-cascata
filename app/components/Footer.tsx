@@ -29,7 +29,7 @@ const I = {
 };
 
 const contacts = [
-  { icon: I.whatsapp, label: "WhatsApp (49) 99183-2114", href: "https://wa.me/5549991832114" },
+  { icon: I.whatsapp, label: "(49) 99183-2114", href: "https://wa.me/5549991832114" },
   { icon: I.instagram, label: "@valedacascata.sc", href: "https://instagram.com/valedacascata.sc" },
   { icon: I.mail, label: "reserva@valedacascata.com.br", href: "mailto:reserva@valedacascata.com.br" },
   { icon: I.map, label: "Como chegar", href: "https://maps.app.goo.gl/38wqgft7NZXYNhvn6?g_st=iw" },
