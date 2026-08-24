@@ -215,7 +215,6 @@ export default function ChaleDetail(props: ChaleDetailProps) {
                   <hr style={{ border: "none", borderTop: "1px solid var(--border-subtle)", margin: "0.25rem 0" }} />
                   <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
                     {[
-                      "Cesta de café da manhã inclusa",
                       "Check-in autônomo",
                       "Estacionamento privativo",
                       "Pet friendly",

@@ -24,7 +24,6 @@ const data = {
     "Capacidade para até 6 hóspedes",
     "Hidromassagem externa privativa",
     "Vista para o lago e para a natureza",
-    "Churrasqueira privativa",
     "Fire pit",
     "Varanda e jardim",
     "Cozinha completa",
