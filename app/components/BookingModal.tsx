@@ -20,6 +20,16 @@ const CHALE_LABELS: Record<string, string> = {
   Borboletas: "Chalé das Borboletas",
 };
 
+// Slug de cada chalé no PMS (reservas.valedacascata.com.br) — usado para
+// montar o link de "Prosseguir" quando há disponibilidade.
+const CHALE_SLUGS: Record<string, string> = {
+  Lago: "chale-do-lago",
+  Cascata: "chale-da-cascata",
+  Borboletas: "chale-das-borboletas",
+};
+
+const PMS_BASE_URL = "https://reservas.valedacascata.com.br";
+
 const WHATSAPP_NUMBER = "5549991832114";
 
 function formatBR(iso: string | null): string {
@@ -275,7 +285,7 @@ export default function BookingModal({ open, onClose }: BookingModalProps) {
                   {availableChales.map(c => (
                     <a
                       key={c}
-                      href={`https://wa.me/${WHATSAPP_NUMBER}?text=${buildWhatsAppMessage(c)}`}
+                      href={`${PMS_BASE_URL}/reservar/${CHALE_SLUGS[c] || ""}`}
                       target="_blank" rel="noreferrer"
                       style={{
                         display: "flex", alignItems: "center", justifyContent: "space-between",
@@ -286,10 +296,13 @@ export default function BookingModal({ open, onClose }: BookingModalProps) {
                       }}
                     >
                       {CHALE_LABELS[c] || c}
-                      <span style={{ color: "var(--gold-400)", fontSize: "var(--text-sm)" }}>Prosseguir →</span>
+                      <span style={{ color: "var(--gold-400)", fontSize: "var(--text-sm)" }}>Reservar e pagar →</span>
                     </a>
                   ))}
                 </div>
+                <p style={{ fontSize: "var(--text-xs)", color: "var(--text-faint)", marginTop: 10, lineHeight: 1.5 }}>
+                  Você será levado ao sistema de reservas para escolher as datas e pagar com segurança (Pix ou cartão).
+                </p>
               </div>
             )}
             <button type="button" onClick={() => setStep("form")} style={{ marginTop: "1.25rem", width: "100%", background: "none", border: "none", color: "var(--text-faint)", fontSize: "var(--text-sm)", cursor: "pointer" }}>
