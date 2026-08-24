@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 const ChaleDetail = dynamic(() => import("../components/ChaleDetail"), { ssr: false });
 
 const data = {
+  slug: "chale-do-lago",
   name: "Chalé Vale da Cascata",
   emoji: "🌊",
   tagline: "O maior chalé da propriedade — espaço, conforto e vista para o lago para famílias e grupos.",

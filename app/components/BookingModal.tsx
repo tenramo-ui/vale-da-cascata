@@ -30,6 +30,12 @@ const CHALE_SLUGS: Record<string, string> = {
 
 const PMS_BASE_URL = "https://reservas.valedacascata.com.br";
 
+// Mesmas regras do formulário de reserva no PMS (src/lib/validations.ts) —
+// mantidas iguais aqui só para mostrar a mensagem certa pro hóspede antes de
+// seguir; a validação de verdade continua acontecendo lá.
+const MAX_PETS = 2;
+const PET_FEE_PER_PET = 100;
+
 const WHATSAPP_NUMBER = "5549991832114";
 
 function formatBR(iso: string | null): string {
@@ -44,6 +50,7 @@ export default function BookingModal({ open, onClose }: BookingModalProps) {
   const [mounted, setMounted] = useState(false);
   const [step, setStep] = useState<Step>("form");
   const [guests, setGuests] = useState(2);
+  const [pets, setPets] = useState(0);
   const [start, setStart] = useState<string | null>(null);
   const [end, setEnd] = useState<string | null>(null);
   const [occupied, setOccupied] = useState<OccupiedRange[]>([]);
@@ -125,6 +132,7 @@ export default function BookingModal({ open, onClose }: BookingModalProps) {
       `📅 Saída: ${formatBR(end)}`,
       `👥 Hóspedes: ${guests}`,
     ];
+    if (pets > 0) linhas.push(`🐾 Pets: ${pets}`);
     if (chale) linhas.push(`🏡 Chalé de interesse: ${CHALE_LABELS[chale] || chale}`);
     return encodeURIComponent(linhas.join("\n"));
   };
@@ -134,6 +142,7 @@ export default function BookingModal({ open, onClose }: BookingModalProps) {
     setStart(null);
     setEnd(null);
     setGuests(2);
+    setPets(0);
     onClose();
   };
 
@@ -193,6 +202,24 @@ export default function BookingModal({ open, onClose }: BookingModalProps) {
                   Nossa capacidade máxima por chalé é de 6 hóspedes. Para grupos maiores, confira nossa seção de Eventos ou fale direto no WhatsApp.
                 </p>
               )}
+            </div>
+
+            {/* Pets */}
+            <div style={{ marginBottom: "1.5rem" }}>
+              <label style={{ display: "block", fontFamily: "var(--font-mono)", fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-faint)", marginBottom: 8 }}>
+                Vem com pet?
+              </label>
+              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                <button type="button" onClick={() => setPets(p => Math.max(0, p - 1))}
+                  style={{ width: 36, height: 36, borderRadius: "50%", border: "1px solid var(--border-soft)", background: "none", color: "var(--text-strong)", cursor: "pointer", fontSize: 18 }}>−</button>
+                <span style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "var(--text-lg)", color: "var(--text-strong)", minWidth: 28, textAlign: "center" }}>{pets}</span>
+                <button type="button" onClick={() => setPets(p => Math.min(MAX_PETS, p + 1))}
+                  style={{ width: 36, height: 36, borderRadius: "50%", border: "1px solid var(--border-soft)", background: "none", color: "var(--text-strong)", cursor: "pointer", fontSize: 18 }}>+</button>
+                <span style={{ fontSize: "var(--text-sm)", color: "var(--text-muted)" }}>{pets === 1 ? "pet" : "pets"}</span>
+              </div>
+              <p style={{ fontSize: "var(--text-xs)", color: "var(--text-faint)", marginTop: 8, lineHeight: 1.5 }}>
+                Pet de até 10kg — taxa de R$ {PET_FEE_PER_PET} por pet, no máximo {MAX_PETS}.
+              </p>
             </div>
 
             {/* Calendar */}
@@ -285,7 +312,11 @@ export default function BookingModal({ open, onClose }: BookingModalProps) {
                   {availableChales.map(c => (
                     <a
                       key={c}
-                      href={`${PMS_BASE_URL}/reservar/${CHALE_SLUGS[c] || ""}`}
+                      href={`${PMS_BASE_URL}/reservar/${CHALE_SLUGS[c] || ""}${
+                        start && end
+                          ? `?checkIn=${start}&checkOut=${end}&guests=${guests}&pets=${pets}`
+                          : ""
+                      }`}
                       target="_blank" rel="noreferrer"
                       style={{
                         display: "flex", alignItems: "center", justifyContent: "space-between",

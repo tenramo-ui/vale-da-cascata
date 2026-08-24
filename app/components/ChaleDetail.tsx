@@ -6,7 +6,11 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import BookingModal from "./BookingModal";
 
+// Base do sistema de reservas (PMS) — mesma URL usada pelo BookingModal.
+const PMS_BASE_URL = "https://reservas.valedacascata.com.br";
+
 interface ChaleDetailProps {
+  slug: string;
   name: string;
   emoji: string;
   tagline: string;
@@ -84,7 +88,7 @@ function NavBar() {
 }
 
 export default function ChaleDetail(props: ChaleDetailProps) {
-  const { name, emoji, tagline, desc, view, heroImg, photos, price, capacity, highlights, rating, reviews } = props;
+  const { slug, name, emoji, tagline, desc, view, heroImg, photos, price, capacity, highlights, rating, reviews } = props;
   const [activePhoto, setActivePhoto] = useState(0);
   const heroRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -201,13 +205,13 @@ export default function ChaleDetail(props: ChaleDetailProps) {
                   por diária · {capacity}
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-                  <a href="https://wa.me/5549991832114" target="_blank" rel="noreferrer"
+                  <a href={`${PMS_BASE_URL}/reservar/${slug}`} target="_blank" rel="noreferrer"
                     style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, fontFamily: "var(--font-sans)", fontWeight: 600, fontSize: "var(--text-base)", color: "var(--text-onGold)", background: "var(--gold-500)", padding: "14px 20px", borderRadius: "var(--radius-pill)", transition: "all 180ms" }}
                     onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "var(--gold-400)"; (e.currentTarget as HTMLElement).style.boxShadow = "var(--glow-gold)"; }}
                     onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "var(--gold-500)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}>
-                    {I.whatsapp} Reservar agora
+                    Reservar e pagar →
                   </a>
-                  <p style={{ fontSize: 11, color: "var(--text-faint)", textAlign: "center", fontFamily: "var(--font-mono)" }}>Você ainda não será cobrado</p>
+                  <p style={{ fontSize: 11, color: "var(--text-faint)", textAlign: "center", fontFamily: "var(--font-mono)" }}>Você escolhe as datas e paga com segurança (Pix ou cartão)</p>
                   <hr style={{ border: "none", borderTop: "1px solid var(--border-subtle)", margin: "0.25rem 0" }} />
                   <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
                     {[

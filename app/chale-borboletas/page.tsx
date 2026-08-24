@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 const ChaleDetail = dynamic(() => import("../components/ChaleDetail"), { ssr: false });
 
 const data = {
+  slug: "chale-das-borboletas",
   name: "Chalé das Borboletas",
   emoji: "🌿",
   tagline: "Charmoso, acolhedor e cercado pela natureza — um convite para desacelerar.",
