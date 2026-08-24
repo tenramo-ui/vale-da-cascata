@@ -4,7 +4,7 @@ const ChaleDetail = dynamic(() => import("../components/ChaleDetail"), { ssr: fa
 
 const data = {
   slug: "chale-do-lago",
-  name: "Chalé Vale da Cascata",
+  name: "Chalé do Lago",
   emoji: "🌊",
   tagline: "O maior chalé da propriedade — espaço, conforto e vista para o lago para famílias e grupos.",
   desc: [
